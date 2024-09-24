@@ -10,3 +10,9 @@ score is a system similarity score indicating of the quality of the answer to th
 runName is the identifier for the system (any string)
 after score is calculated by ratios, rank them by score and write value to rank
 '''
+import csv
+
+for filenum in range(1, 3):
+    with open('answers.tsv', newline='') as answers, open(f'topics_{filenum}.tsv', newline='') as topics:
+        tsv_reader1 = csv.reader(answers, delimiter='\t')
+        tsv_reader2 = csv.reader(topics, delimiter='\t')
