@@ -35,16 +35,13 @@ with open('topics_1.tsv', 'w', newline='') as tsv_file1, open('topics_2.tsv', 'w
     answer_writer = csv.writer(answers_file, delimiter='\t')
     
     #Write to topics_1.tsv
-    tsv_writer1.writerow(['Id', 'Body'])
     for topic in topics_data1:
         tsv_writer1.writerow([topic['Id'], clean_text(topic['Body'])])
 
     #Write to topics_2.tsv
-    tsv_writer2.writerow(['Id', 'Body'])
     for topic in topics_data2:
         tsv_writer2.writerow([topic['Id'], clean_text(topic['Body'])])
 
     #Write to answers.tsv
-    answer_writer.writerow(['ID', 'Text', 'Score'])
     for answer in answers_data:
         answer_writer.writerow([answer['Id'], clean_text(answer['Text']), answer['Score']])
