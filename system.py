@@ -11,11 +11,7 @@ runName is the identifier for the system (any string)
 after score is calculated by ratios, rank them by score and write value to rank
 '''
 import csv
-from collections import defaultdict
 import heapq
-import time
-
-start = time.time()
 
 # Function to calculate Jaccard similarity
 def jaccard_similarity(set1, set2):
@@ -52,5 +48,12 @@ with open('answers.tsv', newline='') as answers, open('topics_1.tsv', newline=''
         top_100_results[query_id] = {doc_id: score for doc_id, score in top_100}
 
 # Example of how to access the results:
-print(top_100_results)
-print(time.time()-start)
+
+with open('result_binary_1.tsv', 'w', newline='') as binarytsv1:
+    binary_writer1 = csv.writer(binarytsv1, delimiter='\t')
+    for query_id, answers in top_100_results.items():
+        rank = 1
+    # Iterate over the inner dictionary (answer IDs and scores)
+        for answer_id, score in answers.items():
+            binary_writer1.writerow([query_id, 'Q0', answer_id, rank, score, "binary1"])
+            rank += 1
