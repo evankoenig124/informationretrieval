@@ -1,3 +1,4 @@
+# Import needed libraries and download nltk data
 import json
 import csv
 import nltk
@@ -5,11 +6,10 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import re 
 import string
+nltk.download('punkt')
+nltk.download('stopwords')
 
-nltk.download('punkt')  # for tokenization
-nltk.download('stopwords')  # for stopwords
-
-#Cleans text of stopwords and irrelevant punctuation 
+# leans text of stopwords and irrelevant punctuation 
 def clean_text(text):
 
     cleaned = re.sub(r'<.*?>', '', text)
@@ -22,7 +22,7 @@ def clean_text(text):
     
     return ' '.join(filtered_sentence)
 
-#Read in 3 json files
+# Read in 3 json files
 with open('topics_1.json', 'r') as json_file1, open('topics_2.json', 'r') as json_file2, open('Answers.json', 'r') as json_file3:
     topics_data1 = json.load(json_file1)
     topics_data2 = json.load(json_file2)
