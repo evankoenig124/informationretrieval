@@ -2,8 +2,10 @@
 import json
 import csv
 import nltk
+import math
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from collections import defaultdict
 import re 
 import string
 nltk.download('punkt')
@@ -11,16 +13,27 @@ nltk.download('stopwords')
 
 # leans text of stopwords and irrelevant punctuation 
 def clean_text(text):
-
+    # Remove HTML tags
     cleaned = re.sub(r'<.*?>', '', text)
-    cleaned = re.sub(r'[%s]' % re.escape(string.punctuation), '', cleaned)  # remove punctuation
-    cleaned = re.sub(r'\d+', '', cleaned)  # remove digits
+    
+    # Replace punctuation with space (preserving spaces)
+    cleaned = re.sub(r'[%s]' % re.escape(string.punctuation), ' ', cleaned)  # replace punctuation with space
+    
+    # Replace digits with space
+    cleaned = re.sub(r'\d+', ' ', cleaned)  # replace digits with space
+    
+    # Replace multiple spaces with a single space
+    cleaned = re.sub(r'\s+', ' ', cleaned)
+    
     cleaned = cleaned.lower().strip()
+    
+    # Tokenize and remove stopwords
     stop_words = set(stopwords.words('english'))  # Set of English stop words
     word_tokens = word_tokenize(cleaned)  # Tokenize the text into words
     filtered_sentence = [word for word in word_tokens if word.lower() not in stop_words]
     
     return ' '.join(filtered_sentence)
+
 
 # Read in 3 json files
 with open('topics_1.json', 'r') as json_file1, open('topics_2.json', 'r') as json_file2, open('Answers.json', 'r') as json_file3:
